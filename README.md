@@ -55,7 +55,7 @@ somos-credito/
 ## 1️⃣ Clonar repositorio
 
 ```bash
-git clone https://github.com/usuario/somos-credito.git
+git clone https://github.com/Flores-Oz/somos-credito.git
 cd somos-credito
 ```
 
