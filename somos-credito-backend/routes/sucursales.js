@@ -7,7 +7,9 @@ const router = express.Router();
 // GET /api/sucursales
 router.get("/", async (req, res) => {
   try {
-    const sucursales = await Sucursal.findAll();
+    const sucursales = await Sucursal.findAll({
+      order: [["id", "DESC"]],
+    });
     res.json(sucursales);
   } catch (err) {
     console.error("Error al listar sucursales:", err);

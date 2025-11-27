@@ -8,27 +8,24 @@ function SucursalFilters({ filters, onChange }) {
   };
 
   return (
-    <div className="card">
-      <h2 className="card-title">Filtros</h2>
-      <div className="filters-bar">
-        <input
-          type="text"
-          name="texto"
-          placeholder="Buscar por nombre, municipio o depto."
-          value={filters.texto}
-          onChange={handleChange}
-        />
-        <select
-          name="estado"
-          value={filters.estado}
-          onChange={handleChange}
-        >
-          <option value="TODOS">Todos los estados</option>
-          <option value="ACTIVA">ACTIVA</option>
-          <option value="INACTIVA">INACTIVA</option>
-          <option value="PENDIENTE">PENDIENTE</option>
-        </select>
-      </div>
+    <div className="filters-bar">
+      <input
+        type="text"
+        name="texto"
+        placeholder="Buscar por nombre, municipio o departamento..."
+        value={filters.texto}
+        onChange={handleChange}
+      />
+      <select
+        name="estado"
+        value={filters.estado}
+        onChange={handleChange}
+      >
+        <option value="TODOS">Todos los estados</option>
+        <option value="ACTIVA">Activas</option>
+        <option value="INACTIVA">Inactivas</option>
+        <option value="PENDIENTE">Pendientes</option>
+      </select>
     </div>
   );
 }

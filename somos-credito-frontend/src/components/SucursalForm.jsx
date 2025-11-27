@@ -1,4 +1,5 @@
 // src/components/SucursalForm.jsx
+
 function SucursalForm({ form, modoEdicion, onChange, onSubmit, onCancel }) {
   return (
     <div className="card">
@@ -8,11 +9,13 @@ function SucursalForm({ form, modoEdicion, onChange, onSubmit, onCancel }) {
 
       <form onSubmit={onSubmit}>
         <div className="form-grid">
+
           <div className="form-group">
             <label>Nombre de la sucursal</label>
             <input
               type="text"
               name="nombre"
+              placeholder="Ej: Sucursal Central Zona 1"
               value={form.nombre}
               onChange={onChange}
               required
@@ -24,6 +27,7 @@ function SucursalForm({ form, modoEdicion, onChange, onSubmit, onCancel }) {
             <input
               type="text"
               name="calle_numero"
+              placeholder="Ej: 6a Calle 3-15"
               value={form.calle_numero}
               onChange={onChange}
               required
@@ -35,6 +39,7 @@ function SucursalForm({ form, modoEdicion, onChange, onSubmit, onCancel }) {
             <input
               type="text"
               name="colonia"
+              placeholder="Ej: Colonia El Maestro (opcional)"
               value={form.colonia}
               onChange={onChange}
             />
@@ -45,6 +50,7 @@ function SucursalForm({ form, modoEdicion, onChange, onSubmit, onCancel }) {
             <input
               type="text"
               name="municipio"
+              placeholder="Ej: Quetzaltenango"
               value={form.municipio}
               onChange={onChange}
               required
@@ -56,6 +62,7 @@ function SucursalForm({ form, modoEdicion, onChange, onSubmit, onCancel }) {
             <input
               type="text"
               name="departamento"
+              placeholder="Ej: Quetzaltenango"
               value={form.departamento}
               onChange={onChange}
               required
@@ -67,6 +74,7 @@ function SucursalForm({ form, modoEdicion, onChange, onSubmit, onCancel }) {
             <input
               type="text"
               name="codigo_postal"
+              placeholder="Ej: 09001"
               value={form.codigo_postal}
               onChange={onChange}
             />
@@ -77,6 +85,7 @@ function SucursalForm({ form, modoEdicion, onChange, onSubmit, onCancel }) {
             <input
               type="text"
               name="telefono"
+              placeholder="Ej: 7765-9801"
               value={form.telefono}
               onChange={onChange}
               required
@@ -95,18 +104,16 @@ function SucursalForm({ form, modoEdicion, onChange, onSubmit, onCancel }) {
               <option value="PENDIENTE">PENDIENTE</option>
             </select>
           </div>
-        </div>
 
+        </div>
+        <br/>
         <div className="form-actions">
           <button className="btn btn-primary" type="submit">
             {modoEdicion ? "Actualizar sucursal" : "Guardar sucursal"}
           </button>
+
           {modoEdicion && (
-            <button
-              className="btn btn-secondary"
-              type="button"
-              onClick={onCancel}
-            >
+            <button className="btn btn-secondary" type="button" onClick={onCancel}>
               Cancelar
             </button>
           )}
