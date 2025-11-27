@@ -17,16 +17,16 @@ app.use("/api/sucursales", sucursalesRouter);
 async function start() {
   try {
     await sequelize.authenticate();
-    console.log("✅ Conectado a MySQL correctamente");
+    console.log("Conectado a MySQL correctamente");
 
     // Opcional: validar modelo con la BD
     // await require("./models/sucursal").sync({ alter: false });
 
     app.listen(3001, () => {
-      console.log("🚀 API escuchando en http://localhost:3001");
+      console.log("API escuchando en http://localhost:3001");
     });
   } catch (err) {
-    console.error("❌ Error al conectar a la base de datos:", err);
+    console.error("Error al conectar a la base de datos:", err);
   }
 }
 
