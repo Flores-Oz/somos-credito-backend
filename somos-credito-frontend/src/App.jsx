@@ -14,6 +14,7 @@ import {
   updateEstadoSucursal,
 } from "./services/sucursalesApi";
 import { exportSucursalesPdf } from "./utils/exportPdf";
+import { toastSuccess, toastError, confirmDelete } from "./utils/alerts";
 
 
 const initialForm = {
@@ -75,22 +76,26 @@ function App() {
     setModoEdicion(false);
   };
 
-  const guardarSucursal = async (e) => {
-    e.preventDefault();
+const guardarSucursal = async (e) => {
+  e.preventDefault();
 
-    try {
-      if (modoEdicion && form.id) {
-        await updateSucursal(form.id, form);
-      } else {
-        await createSucursal(form);
-      }
-      await cargarSucursales();
-      limpiarFormulario();
-    } catch (error) {
-      console.error(error);
-      setErrorMsg("Ocurrió un error al guardar la sucursal.");
+  try {
+    if (modoEdicion && form.id) {
+      await updateSucursal(form.id, form);
+      await toastSuccess("Sucursal actualizada");
+    } else {
+      await createSucursal(form);
+      await toastSuccess("Sucursal creada");
     }
-  };
+    await cargarSucursales();
+    limpiarFormulario();
+  } catch (error) {
+    console.error(error);
+    setErrorMsg("Ocurrió un error al guardar la sucursal.");
+    toastError("Error al guardar la sucursal");
+  }
+};
+
 
   const editarSucursal = (s) => {
     setForm({
@@ -107,28 +112,35 @@ function App() {
     setModoEdicion(true);
   };
 
-  const eliminarSucursal = async (id) => {
-    const confirmar = window.confirm("¿Seguro que deseas eliminar esta sucursal?");
-    if (!confirmar) return;
+const eliminarSucursal = async (id) => {
+  const result = await confirmDelete("Se eliminará la sucursal seleccionada.");
+  if (!result.isConfirmed) return;
 
-    try {
-      await deleteSucursal(id);
-      await cargarSucursales();
-    } catch (error) {
-      console.error(error);
-      setErrorMsg("Ocurrió un error al eliminar la sucursal.");
-    }
-  };
+  try {
+    await deleteSucursal(id);
+    await cargarSucursales();
+    toastSuccess("Sucursal eliminada");
+  } catch (error) {
+    console.error(error);
+    setErrorMsg("Ocurrió un error al eliminar la sucursal.");
+    toastError("Error al eliminar la sucursal");
+  }
+};
 
-  const cambiarEstado = async (sucursal, nuevoEstado) => {
-    try {
-      await updateEstadoSucursal(sucursal, nuevoEstado);
-      await cargarSucursales();
-    } catch (error) {
-      console.error(error);
-      setErrorMsg("Ocurrió un error al actualizar el estado de la sucursal.");
-    }
-  };
+const cambiarEstado = async (sucursal, nuevoEstado) => {
+  try {
+    await updateEstadoSucursal(sucursal, nuevoEstado);
+    await cargarSucursales();
+    toastSuccess(
+      nuevoEstado === "ACTIVA" ? "Sucursal dada de alta" : "Sucursal dada de baja"
+    );
+  } catch (error) {
+    console.error(error);
+    setErrorMsg("Ocurrió un error al actualizar el estado de la sucursal.");
+    toastError("Error al cambiar estado");
+  }
+};
+
 
   // ----- Filtros + paginación -----
   const handleFiltersChange = (newFilters) => {
@@ -162,29 +174,30 @@ function App() {
   // ----- Exportar a PDF -----
  const exportarTodoPdf = () => {
   if (sucursales.length === 0) {
-    alert("No hay sucursales para exportar.");
+    toastError("No hay sucursales para exportar");
     return;
   }
-
   exportSucursalesPdf(
     sucursales,
     "Sucursales - Listado completo",
     "sucursales_todas.pdf"
   );
+  toastSuccess("PDF generado");
 };
 
 const exportarFiltradoPdf = () => {
   if (filtered.length === 0) {
-    alert("No hay resultados filtrados para exportar.");
+    toastError("No hay resultados filtrados para exportar");
     return;
   }
-
   exportSucursalesPdf(
     filtered,
     "Sucursales - Resultados filtrados",
     "sucursales_filtradas.pdf"
   );
+  toastSuccess("PDF generado");
 };
+
 
   return (
     <div className="app-container">
