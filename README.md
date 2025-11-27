@@ -6,7 +6,7 @@ CRUD | Filtros | Paginación | Exportación a PDF | React + Hooks | Node.js + My
 
 ## 📄 Descripción del proyecto
 
-Este proyecto implementa un **módulo de gestión de sucursales** para una financiera ficticia llamada *Somos Crédito*.
+Este proyecto implementa un **módulo de gestión de sucursales** para una financiera *Somos Crédito*.
 Permite administrar sucursales a nivel nacional, incluyendo:
 
 * Registro de nuevas sucursales
